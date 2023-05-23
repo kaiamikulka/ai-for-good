@@ -11,7 +11,7 @@ def cond_prob (table, e, e_val, t, t_val):
   t_subset = up_table_subset(table, t, 'equals', t_val) 
   e_list = up_get_column(t_subset, e)  
   p_b_a = sum([1 if v==e_val else 0 for v in e_list])/len(e_list) 
-  return p_b_a
+  return p_b_a + 0.01
 
 def cond_probs_product(table, e_val, t, t_val):
   table_columns = up_list_column_names(table)  #new puddles function
@@ -39,3 +39,13 @@ def naive_bayes(table, evidence_row, target):
   yes = x * y
   neg, pos = compute_probs(no, yes)
   return [neg, pos]
+
+for column in wrangled_mushroom:
+  column_values = up_get_column(wrangled_mushroom, column)
+  column_set= set(column_values)
+  column_unique = sorted(column_set)
+  column_ints = list(range(len(column_unique)))
+  zipped = up_zip_lists(column_unique, column_ints)
+  column_dict = dict(zipped)
+  wrangled_mushroom = up_map_column(wrangled_mushroom, column, column_dict)
+
