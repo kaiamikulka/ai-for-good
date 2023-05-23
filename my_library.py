@@ -40,12 +40,13 @@ def naive_bayes(table, evidence_row, target):
   neg, pos = compute_probs(no, yes)
   return [neg, pos]
 
-for column in wrangled_mushroom:
-  column_values = up_get_column(wrangled_mushroom, column)
-  column_set= set(column_values)
-  column_unique = sorted(column_set)
-  column_ints = list(range(len(column_unique)))
-  zipped = up_zip_lists(column_unique, column_ints)
-  column_dict = dict(zipped)
-  wrangled_mushroom = up_map_column(wrangled_mushroom, column, column_dict)
+def all_column_dict(table): 
+  for column in table:
+    column_values = up_get_column(table, column)
+    column_set= set(column_values)
+    column_unique = sorted(column_set)
+    column_ints = list(range(len(column_unique)))
+    zipped = up_zip_lists(column_unique, column_ints)
+    column_dict = dict(zipped)
+      table = up_map_column(table, column, column_dict)
 
